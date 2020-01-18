@@ -1,0 +1,30 @@
+# Docker official image with docker-in-docker (dind)
+FROM docker:stable-dind
+
+RUN apk update && apk upgrade
+
+# * Must-Installed packages to use this image for a DockerHost instance:
+# - bash: Used by startShell method in DockerHost, used as the default interactive shell
+# - iproute2: IP utilities to manage interfaces.
+# - iperf: Used in Mininet's bandwidth tests.
+# - busybox-extras: Includes telnet, used by running iperf with Mininet's CLI
+RUN apk add bash bash-completion
+RUN apk add iproute2 busybox-extras iperf
+
+RUN apk add nodejs
+RUN apk add npm
+
+WORKDIR /home/app
+COPY controller /home/app
+
+ENV HOME /root
+WORKDIR /root
+
+# Define default command.
+CMD ["bash"]
+
+WORKDIR /home/app
+CMD npm install
+CMD node /home/app/build/index.js
+
+CMD tail -f /dev/null
