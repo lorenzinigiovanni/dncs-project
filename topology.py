@@ -35,7 +35,7 @@ if __name__ == "__main__":
         "h2",
         dimage="txrx",
         ip="10.0.0.2",
-        docker_args={},
+        docker_args={"environment": ["NAME=cucina"]},
     )
 
     info("Add link\n")
@@ -44,7 +44,7 @@ if __name__ == "__main__":
     info("Start\n")
     net.start()
 
-    time.sleep(300)
+    time.sleep(60)
 
     info("Forza Napoli\n")
     net.stop()

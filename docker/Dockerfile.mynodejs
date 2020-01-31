@@ -15,5 +15,3 @@ RUN apt-get install -y nodejs
 
 # Define default command.
 CMD ["bash"]
-
-ENTRYPOINT node /home/app/build/index.js

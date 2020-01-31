@@ -4,3 +4,5 @@ WORKDIR /home/app
 COPY txrx /home/app
 
 RUN npm install
+
+ENTRYPOINT node /home/app/build/index.js $NAME
