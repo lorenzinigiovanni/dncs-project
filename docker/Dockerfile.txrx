@@ -1,28 +1,6 @@
-FROM ubuntu:18.04
-
-RUN apt-get update
-RUN apt-get install -y apt-utils
-RUN apt-get upgrade -y
-
-RUN apt-get install -y wget ca-certificates iproute2 net-tools telnet tcpdump iputils-ping procps iperf iperf3 flent netperf python3-setuptools curl 
-
-RUN rm -rf /var/lib/apt/lists /var/cache/apt/archives
-
-RUN curl -sL https://deb.nodesource.com/setup_12.x | bash -
-RUN apt-get update
-RUN apt-get install -y nodejs
+FROM mynodejs
 
 WORKDIR /home/app
 COPY txrx /home/app
 
-RUN node -v
-RUN npm -v
 RUN npm install
-
-ENV HOME /root
-WORKDIR /root
-
-# Define default command.
-CMD ["bash"]
-
-CMD node /home/app/build/index.js

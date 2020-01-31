@@ -9,13 +9,11 @@ RUN apt-get install nano
 
 RUN rm -rf /var/lib/apt/lists /var/cache/apt/archives
 
+RUN curl -sL https://deb.nodesource.com/setup_12.x | bash -
 RUN apt-get update
-RUN apt-get install -y mosquitto
-
-ENV HOME /root
-WORKDIR /root
+RUN apt-get install -y nodejs
 
 # Define default command.
 CMD ["bash"]
 
-ENTRYPOINT mosquitto
+ENTRYPOINT node /home/app/build/index.js

@@ -8,8 +8,9 @@ from mininet.link import TCLink
 
 CPU_SETS = "0"
 
+if __name__ == "__main__":
+    setLogLevel("info")
 
-def testDockerInDocker():
     net = Containernet(controller=Controller, link=TCLink)
 
     info("Add controller c0\n")
@@ -47,8 +48,3 @@ def testDockerInDocker():
 
     info("Forza Napoli\n")
     net.stop()
-
-
-if __name__ == "__main__":
-    setLogLevel("info")
-    testDockerInDocker()
