@@ -19,27 +19,55 @@ if __name__ == "__main__":
     info("Add switch s1\n")
     switch = net.addSwitch("s1")
 
-    info("Add host h1\n")
-    broker = net.addDockerHost(
-        "h1",
+    # broker
+
+    info("Add host brokermqtt\n")
+    brokermqtt = net.addDockerHost(
+        "brokermqtt",
         dimage="brokermqtt",
         ip="10.0.0.1",
         docker_args={},
     )
 
     info("Add link\n")
-    net.addLink(switch, broker, bw=10, delay="10ms")
+    net.addLink(switch, brokermqtt, bw=10, delay="10ms")
 
-    info("Add host h2\n")
-    controller = net.addDockerHost(
-        "h2",
-        dimage="txrx",
-        ip="10.0.0.2",
+    # valvole
+
+    info("Add host valvolacucina\n")
+    valvolacucina = net.addDockerHost(
+        "valvolacucina",
+        dimage="valvola",
+        ip="10.0.0.31",
         docker_args={"environment": ["NAME=cucina"]},
     )
 
     info("Add link\n")
-    net.addLink(switch, controller, bw=10, delay="10ms")
+    net.addLink(switch, valvolacucina, bw=10, delay="10ms")
+
+    info("Add host valvolacamera\n")
+    valvolacamera = net.addDockerHost(
+        "valvolacamera",
+        dimage="valvola",
+        ip="10.0.0.32",
+        docker_args={"environment": ["NAME=camera"]},
+    )
+
+    info("Add link\n")
+    net.addLink(switch, valvolacamera, bw=10, delay="10ms")
+
+    info("Add host valvolabagno\n")
+    valvolabagno = net.addDockerHost(
+        "valvolabagno",
+        dimage="valvola",
+        ip="10.0.0.33",
+        docker_args={"environment": ["NAME=bagno"]},
+    )
+
+    info("Add link\n")
+    net.addLink(switch, valvolabagno, bw=10, delay="10ms")
+
+    # start
 
     info("Start\n")
     net.start()
