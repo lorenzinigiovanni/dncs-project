@@ -20,7 +20,7 @@ if __name__ == "__main__":
     switch = net.addSwitch("s1")
 
     # broker
-
+    
     info("Add host brokermqtt\n")
     brokermqtt = net.addDockerHost(
         "brokermqtt",
@@ -67,6 +67,54 @@ if __name__ == "__main__":
     info("Add link\n")
     net.addLink(switch, valvolabagno, bw=10, delay="10ms")
 
+    # umidificatori
+
+    info("Add host umidificatorecucina\n")
+    umidcucina = net.addDockerHost(
+        "umidificatorecucina",
+        dimage="umidificatore",
+        ip="10.0.0.34",
+        docker_args={"environment": ["NAME=cucina"]},
+    )
+
+    info("Add link\n")
+    net.addLink(switch, umidcucina, bw=10, delay="10ms")
+
+    info("Add host umidificatorecamera\n")
+    umidcamera = net.addDockerHost(
+        "umidificatorecamera",
+        dimage="umidificatore",
+        ip="10.0.0.35",
+        docker_args={"environment": ["NAME=camera"]},
+    )
+
+    info("Add link\n")
+    net.addLink(switch, umidcamera, bw=10, delay="10ms")
+
+    info("Add host umidificatorebagno\n")
+    umidbagno = net.addDockerHost(
+        "umidificatorebagno",
+        dimage="umidificatore",
+        ip="10.0.0.36",
+        docker_args={"environment": ["NAME=bagno"]},
+    )
+
+    info("Add link\n")
+    net.addLink(switch, umidbagno, bw=10, delay="10ms")
+
+    # app
+
+    info("Add host app\n")
+    app = net.addDockerHost(
+        "app",
+        dimage="app",
+        ip="10.0.0.2",
+        docker_args={},
+    )
+
+    info("Add link\n")
+    net.addLink(switch, app, bw=10, delay="10ms")
+    
     # start
 
     info("Start\n")
