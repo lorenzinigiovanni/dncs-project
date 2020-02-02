@@ -38,7 +38,7 @@ if __name__ == "__main__":
     v1 = net.addDockerHost(
         "v1",
         dimage="valvola",
-        ip="10.0.0.31",
+        ip="10.0.0.3",
         docker_args={"environment": ["NAME=cucina"]},
     )
     
@@ -49,7 +49,7 @@ if __name__ == "__main__":
     v2 = net.addDockerHost(
         "v2",
         dimage="valvola",
-        ip="10.0.0.32",
+        ip="10.0.0.4",
         docker_args={"environment": ["NAME=camera"]},
     )
 
@@ -60,7 +60,7 @@ if __name__ == "__main__":
     v3 = net.addDockerHost(
         "v3",
         dimage="valvola",
-        ip="10.0.0.33",
+        ip="10.0.0.5",
         docker_args={"environment": ["NAME=bagno"]},
     )
 
@@ -73,7 +73,7 @@ if __name__ == "__main__":
     u1 = net.addDockerHost(
         "u1",
         dimage="umidificatore",
-        ip="10.0.0.34",
+        ip="10.0.0.6",
         docker_args={"environment": ["NAME=cucina"]},
     )
 
@@ -84,7 +84,7 @@ if __name__ == "__main__":
     u2 = net.addDockerHost(
         "u2",
         dimage="umidificatore",
-        ip="10.0.0.35",
+        ip="10.0.0.7",
         docker_args={"environment": ["NAME=camera"]},
     )
 
@@ -95,7 +95,7 @@ if __name__ == "__main__":
     u3 = net.addDockerHost(
         "u3",
         dimage="umidificatore",
-        ip="10.0.0.36",
+        ip="10.0.0.8",
         docker_args={"environment": ["NAME=bagno"]},
     )
 
