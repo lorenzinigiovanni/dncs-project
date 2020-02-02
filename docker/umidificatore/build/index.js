@@ -8,7 +8,7 @@ var fs_1 = __importDefault(require("fs"));
 var umidificatore_1 = require("./umidificatore");
 var args = process.argv.slice(2);
 var name = args[0];
-var mqttClient = mqtt_1.default.connect('mqtt://test.mosquitto.org');
+var mqttClient = mqtt_1.default.connect('mqtt://10.0.0.1');
 mqttClient.subscribe(name + '/umidificatore/+');
 var stream = fs_1.default.createWriteStream('log.txt', { flags: 'a' });
 var umidificatore = new umidificatore_1.Umidificatore(0.5);
