@@ -1,13 +1,19 @@
 export class Umidificatore {
-
     private _delta: number = 0;
-    private _enable: boolean = false;
 
+    private _onOff: boolean = false;
     private _currentValue: number = 0;
     private _target: number = 0;
-    
+
     constructor(delta: number) {
         this._delta = delta;
+    }
+
+    get onOff(): boolean {
+        return this._onOff;
+    }
+    set onOff(value: boolean) {
+        this._onOff = value;
     }
 
     get currentValue(): number {
@@ -24,26 +30,16 @@ export class Umidificatore {
         this._target = value;
     }
 
-    get enable(): boolean {
-        return this._enable;
-    }
-    set enable(value: boolean) {
-        this._enable = value;
-    }
-
     active(): string {
-        if(this._enable) {
+        if (this._onOff) {
             if (this.currentValue < this.target) {
-                this.currentValue += this._delta;
-                return "plus";
+                return "umidificazione";
             } else if (this.currentValue > this.target) {
-                this.currentValue -= this._delta;
-                return "minus";
+                return "deumidificazione";
             } else {
-                this._enable = false;
-                return "disabled";
+                return "disabilitato";
             }
         }
-        return "disabled";        
+        return "disabilitato";
     }
 }

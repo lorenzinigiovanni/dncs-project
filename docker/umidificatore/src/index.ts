@@ -7,18 +7,23 @@ let name = args[0];
 
 let mqttClient = mqtt.connect('mqtt://10.0.0.1');
 mqttClient.subscribe(name + '/umidificatore/+');
+mqttClient.subscribe(name + '/+');
 
-let stream = fs.createWriteStream('log.txt', { flags: 'a' });
+let stream = fs.createWriteStream('logumidificatore' + name + '.txt', { flags: 'a' });
 
 let umidificatore = new Umidificatore(0.5);
 
 mqttClient.on('message', (topic: string, message: Buffer) => {
-    if (topic == name + '/umidificatore/umiditaAttuale') {
+    if (topic == name + '/umidificatore/on') {
         umidificatore.enable = true;
-        umidificatore.currentValue = +message;       
     }
-    else if (topic == name + '/umidificatore/umiditaTarget') {
-        umidificatore.enable = true;
+    else if (topic == name + '/umidificatore/off') {
+        umidificatore.enable = false;
+    }
+    else if (topic == name + '/umidita') {
+        umidificatore.currentValue = +message;
+    }
+    else if (topic == name + '/umiditaTarget') {
         umidificatore.target = +message;
     }
 });
@@ -26,5 +31,5 @@ mqttClient.on('message', (topic: string, message: Buffer) => {
 let timer = setInterval(() => up(), 60 * 1000);
 
 let up = () => {
-    stream.write('target: ' + umidificatore.target + ' umidita attuale: ' + umidificatore.currentValue + ' active: ' + umidificatore.enable + ' funzione: ' + umidificatore.active() + '\r\n');
+    stream.write('On/off: ' + umidificatore.onOff + ' target: ' + umidificatore.target + ' umidita attuale: ' + umidificatore.currentValue + ' funzione: ' + umidificatore.active() + '\r\n');
 }
