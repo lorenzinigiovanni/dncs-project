@@ -12,4 +12,5 @@ docker build -t valvola -f ./Dockerfile.valvola .
 docker build -t umidificatore -f ./Dockerfile.umidificatore .
 docker build -t split -f ./Dockerfile.split .
 docker build -t luce -f ./Dockerfile.luce .
+docker build -t tapparella -f ./Dockerfile.tapparella .
 docker image prune --force

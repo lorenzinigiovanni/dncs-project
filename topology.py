@@ -156,6 +156,40 @@ def luci():
     info("Add link\n")
     net.addLink(switch, l3, bw=10, delay="10ms")    
 
+def tapparelle():
+    info("Add host tapparellacucina\n")
+    t1 = net.addDockerHost(
+        "t1",
+        dimage="tapparella",
+        ip="10.0.0.16",
+        docker_args={"environment": ["NAME=cucina"]},
+    )
+
+    info("Add link\n")
+    net.addLink(switch, t1, bw=10, delay="10ms")
+
+    info("Add host tapparellacamera\n")
+    t2 = net.addDockerHost(
+        "t2",
+        dimage="tapparella",
+        ip="10.0.0.17",
+        docker_args={"environment": ["NAME=camera"]},
+    )
+
+    info("Add link\n")
+    net.addLink(switch, t2, bw=10, delay="10ms")
+
+    info("Add host tapparellabagno\n")
+    t3 = net.addDockerHost(
+        "t3",
+        dimage="tapparella",
+        ip="10.0.0.18",
+        docker_args={"environment": ["NAME=bagno"]},
+    )
+
+    info("Add link\n")
+    net.addLink(switch, t3, bw=10, delay="10ms")
+
 def applicazione():
     info("Add host applicazione\n")
     a1 = net.addDockerHost(
@@ -194,6 +228,9 @@ if __name__ == "__main__":
 
     # luci
     luci()
+
+    # tapparelle
+    tapparelle()
 
     # applicazione
     applicazione()    
