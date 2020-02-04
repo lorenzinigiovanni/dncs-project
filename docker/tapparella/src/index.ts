@@ -8,7 +8,7 @@ let name = args[0];
 let mqttClient = mqtt.connect('mqtt://10.0.0.1');
 mqttClient.subscribe(name + '/tapparella/+');
 
-let stream = fs.createWriteStream('log.txt', { flags: 'a' });
+let stream = fs.createWriteStream('logtapparella' + name + '.txt', { flags: 'a' });
 
 let tapparella = new Tapparella();
 
@@ -17,7 +17,7 @@ mqttClient.on('message', (topic: string, message: Buffer) => {
         tapparella.percDown = 0;
     } else if (topic == name + '/tapparella/down') {
         tapparella.percDown = 100;
-    } else if (topic == name + '/tapparella/percent') {
+    } else if (topic == name + '/tapparella/percentuale') {
         tapparella.percDown = +message;
     }
 });
@@ -25,5 +25,5 @@ mqttClient.on('message', (topic: string, message: Buffer) => {
 let timer = setInterval(() => up(), 60 * 1000);
 
 let up = () => {
-    stream.write('percentuale abbassamento tapparella: ' + tapparella.percDown + '%' + '\r\n');
+    stream.write('Percentuale abbassamento tapparella: ' + tapparella.percDown + '%' + '\r\n');
 }

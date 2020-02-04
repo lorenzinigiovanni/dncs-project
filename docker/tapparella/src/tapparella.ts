@@ -1,5 +1,5 @@
 export class Tapparella {
-    private _percDown:number = 0;
+    private _percDown: number = 0;
 
     get percDown(): number {
         return this._percDown;
