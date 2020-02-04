@@ -5,6 +5,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var mqtt_1 = __importDefault(require("mqtt"));
 var mqttClient = mqtt_1.default.connect('mqtt://10.0.0.1');
-mqttClient.publish('bagno/umidificatore/umiditaAttuale', "23");
-mqttClient.publish('bagno/umidificatore/umiditaTarget', "20");
+mqttClient.publish('bagno/luce/onOff', "on");
+mqttClient.publish('bagno/luce/intensita', "70");
 //# sourceMappingURL=index.js.map
