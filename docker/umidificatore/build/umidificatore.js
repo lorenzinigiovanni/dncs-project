@@ -3,11 +3,21 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var Umidificatore = /** @class */ (function () {
     function Umidificatore(delta) {
         this._delta = 0;
-        this._enable = false;
+        this._onOff = false;
         this._currentValue = 0;
         this._target = 0;
         this._delta = delta;
     }
+    Object.defineProperty(Umidificatore.prototype, "onOff", {
+        get: function () {
+            return this._onOff;
+        },
+        set: function (value) {
+            this._onOff = value;
+        },
+        enumerable: true,
+        configurable: true
+    });
     Object.defineProperty(Umidificatore.prototype, "currentValue", {
         get: function () {
             return this._currentValue;
@@ -28,32 +38,19 @@ var Umidificatore = /** @class */ (function () {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(Umidificatore.prototype, "enable", {
-        get: function () {
-            return this._enable;
-        },
-        set: function (value) {
-            this._enable = value;
-        },
-        enumerable: true,
-        configurable: true
-    });
     Umidificatore.prototype.active = function () {
-        if (this._enable) {
+        if (this._onOff) {
             if (this.currentValue < this.target) {
-                this.currentValue += this._delta;
-                return "plus";
+                return "umidificazione";
             }
             else if (this.currentValue > this.target) {
-                this.currentValue -= this._delta;
-                return "minus";
+                return "deumidificazione";
             }
             else {
-                this._enable = false;
-                return "disabled";
+                return "disabilitato";
             }
         }
-        return "disabled";
+        return "disabilitato";
     };
     return Umidificatore;
 }());

@@ -1,24 +1,32 @@
 export class PulsanteTapparella {
-    call(mqttClient: any, stanza: string, action: number) {
+    private _mqttClient: any;
+    private _message: string = "";
+
+    constructor(mqttClient: any) {
+        this._mqttClient = mqttClient;
+    }
+
+    call(stanza: string, action: number) {
         if (action == 0) {
-            this.up(mqttClient, stanza);
+            this.up(stanza);
         } else if (action == 1) {
-            this.down(mqttClient, stanza);
+            this.down(stanza);
         } else if (action == 2) {
-            this.percent(mqttClient, stanza);
+            this.percent(stanza, Math.floor(Math.random() * 100) + 0);
         }
     }
 
-    up(mqttClient: any, stanza: string) {
-
+    up(stanza: string) {
+        this._mqttClient.publish(stanza + '/tapparella/up', this._message);
     }
 
-    down(mqttClient: any, stanza: string) {
-
+    down(stanza: string) {
+        this._mqttClient.publish(stanza + '/tapparella/down', this._message);
     }
 
-    percent(mqttClient: any, stanza: string) {
-
+    percent(stanza: string, percDown: number) {
+        this._message = percDown.toString();
+        this._mqttClient.publish(stanza + '/tapparella/percentuale', this._message);
     } 
 
 }

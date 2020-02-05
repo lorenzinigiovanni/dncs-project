@@ -190,12 +190,24 @@ def tapparelle():
     info("Add link\n")
     net.addLink(switch, t3, bw=10, delay="10ms")
 
+def sonda():
+    info("Add host sonda\n")
+    so = net.addDockerHost(
+        "so",
+        dimage="sonda",
+        ip="10.0.0.19",
+        docker_args={},
+    )
+
+    info("Add link\n")
+    net.addLink(switch, so, bw=10, delay="10ms")
+
 def pulsantiera():
     info("Add host pulsantiera\n")
     p1 = net.addDockerHost(
         "p1",
         dimage="pulsantiera",
-        ip="10.0.0.19",
+        ip="10.0.0.20",
         docker_args={},
     )
 
@@ -234,7 +246,6 @@ if __name__ == "__main__":
     # umidificatori
     umidificatori()
     
-    
     # split
     split()
 
@@ -243,6 +254,12 @@ if __name__ == "__main__":
 
     # tapparelle
     tapparelle()
+
+    # sonda
+    sonda()
+
+    # pulsantiera
+    pulsantiera()
 
     # applicazione
     applicazione()    

@@ -1,7 +1,4 @@
-import mqtt from 'mqtt';
-import fs from 'fs';
+import { Applicazione } from './applicazione';
 
-let mqttClient = mqtt.connect('mqtt://10.0.0.1');
-
-mqttClient.publish('bagno/luce/onOff', "on");
-mqttClient.publish('bagno/luce/intensita', "70");
+let applicazione = new Applicazione();
+//applicazione.update();

@@ -10,7 +10,7 @@ var args = process.argv.slice(2);
 var name = args[0];
 var mqttClient = mqtt_1.default.connect('mqtt://10.0.0.1');
 mqttClient.subscribe(name + '/tapparella/+');
-var stream = fs_1.default.createWriteStream('log.txt', { flags: 'a' });
+var stream = fs_1.default.createWriteStream('logtapparella' + name + '.txt', { flags: 'a' });
 var tapparella = new tapparella_1.Tapparella();
 mqttClient.on('message', function (topic, message) {
     if (topic == name + '/tapparella/up') {
@@ -19,12 +19,12 @@ mqttClient.on('message', function (topic, message) {
     else if (topic == name + '/tapparella/down') {
         tapparella.percDown = 100;
     }
-    else if (topic == name + '/tapparella/percent') {
+    else if (topic == name + '/tapparella/percentuale') {
         tapparella.percDown = +message;
     }
 });
 var timer = setInterval(function () { return up(); }, 60 * 1000);
 var up = function () {
-    stream.write('percentuale abbassamento tapparella: ' + tapparella.percDown + '%' + '\r\n');
+    stream.write('Percentuale abbassamento tapparella: ' + tapparella.percDown + '%' + '\r\n');
 };
 //# sourceMappingURL=index.js.map

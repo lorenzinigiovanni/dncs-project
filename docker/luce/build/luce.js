@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 var Luce = /** @class */ (function () {
     function Luce() {
-        this._onOff = "";
+        this._onOff = false;
         this._intensita = 0;
     }
     Object.defineProperty(Luce.prototype, "onOff", {
@@ -17,7 +17,10 @@ var Luce = /** @class */ (function () {
     });
     Object.defineProperty(Luce.prototype, "intensita", {
         get: function () {
-            return this._intensita;
+            if (this._onOff)
+                return this._intensita;
+            else
+                return 0;
         },
         set: function (value) {
             this._intensita = value;
@@ -26,7 +29,7 @@ var Luce = /** @class */ (function () {
         configurable: true
     });
     Luce.prototype.reset = function () {
-        this._onOff = "";
+        this._onOff = false;
         this._intensita = 0;
     };
     return Luce;

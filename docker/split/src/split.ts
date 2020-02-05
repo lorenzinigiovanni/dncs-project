@@ -1,23 +1,38 @@
 export class Split {
-    private _tempCurrent: number = 0;
-    private _tempTarget: number = 0;    
+    private _onOff: boolean = false;
+    private _tempTarget: number = 0;
+    private _velVentola: number = 0;
 
-    get tempCurrent(): number {
-        return this._tempCurrent;
+    get onOff(): boolean {
+        return this._onOff;
     }
-    set tempCurrent(value: number) {
-        this._tempCurrent = value;
+    set onOff(value: boolean) {
+        this._onOff = value;
     }
 
     get tempTarget(): number {
-        return this._tempTarget;
+        if (this._onOff)
+            return this._tempTarget;
+        else
+            return 0;
     }
     set tempTarget(value: number) {
         this._tempTarget = value;
     }
 
+    get velVentola(): number {
+        if (this._onOff)
+            return this._velVentola;
+        else
+            return 0;
+    }
+    set velVentola(value: number) {
+        this._velVentola = value;
+    }
+
     reset() {
-        this._tempCurrent = 0;
+        this._onOff = false;
         this._tempTarget = 0;
+        this._velVentola = 0;
     }
 }
