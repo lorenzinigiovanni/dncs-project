@@ -190,6 +190,18 @@ def tapparelle():
     info("Add link\n")
     net.addLink(switch, t3, bw=10, delay="10ms")
 
+def pulsantiera():
+    info("Add host pulsantiera\n")
+    p1 = net.addDockerHost(
+        "p1",
+        dimage="pulsantiera",
+        ip="10.0.0.19",
+        docker_args={},
+    )
+
+    info("Add link\n")
+    net.addLink(switch, p1, bw=10, delay="10ms")
+
 def applicazione():
     info("Add host applicazione\n")
     a1 = net.addDockerHost(
