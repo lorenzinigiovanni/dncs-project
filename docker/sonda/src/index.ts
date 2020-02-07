@@ -7,7 +7,7 @@ let name = args[0];
 
 let mqttClient = mqtt.connect('mqtt://10.0.0.1');
 
-let stream = fs.createWriteStream('logvalvola' + name + '.txt', { flags: 'a' });
+let stream = fs.createWriteStream('logsonda' + name + '.txt', { flags: 'a' });
 
 let sonda = new Sonda();
 
@@ -18,9 +18,9 @@ let up = () => {
     let umi = sonda.umidita;
     let lum = sonda.luminosita;
 
-    mqttClient.publish(name + '/temperatura', temp);
-    mqttClient.publish(name + '/umidita', umi);
-    mqttClient.publish(name + '/luminosita', lum);
+    mqttClient.publish(name + '/temperatura', temp.toString());
+    mqttClient.publish(name + '/umidita', umi.toString());
+    mqttClient.publish(name + '/luminosita', lum.toString());
 
     stream.write('Temperatura: ' + temp + ' umidita: ' + umi + ' luminosita: ' + lum + '\r\n');
 }
