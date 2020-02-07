@@ -5,6 +5,13 @@ var PulsanteLuce = /** @class */ (function () {
         this._message = "";
         this._mqttClient = mqttClient;
     }
+    Object.defineProperty(PulsanteLuce.prototype, "message", {
+        get: function () {
+            return this._message;
+        },
+        enumerable: true,
+        configurable: true
+    });
     PulsanteLuce.prototype.call = function (stanza, action) {
         if (action == 0) {
             this.on(stanza);

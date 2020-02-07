@@ -4,11 +4,13 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var mqtt_1 = __importDefault(require("mqtt"));
+var fs_1 = __importDefault(require("fs"));
 var pulsanteLuce_1 = require("./pulsanteLuce");
 var pulsanteTapparella_1 = require("./pulsanteTapparella");
 var Pulsantiera = /** @class */ (function () {
     function Pulsantiera() {
         this._mqttClient = mqtt_1.default.connect('mqtt://10.0.0.1');
+        this._stream = fs_1.default.createWriteStream('logpulsantiera.txt', { flags: 'a' });
         this._stanze = ["cucina", "camera", "bagno"];
         this._pulsantiLuci = new Array(3);
         this._pulsantiTapparelle = new Array(3);
@@ -28,6 +30,7 @@ var Pulsantiera = /** @class */ (function () {
         this._timer = setInterval(function () { return _this._up(); }, 60 * 1000);
         this._up = function () {
             _this.randomCommand();
+            _this._stream.write('Pulsante luce: ' + _this._pulsantiLuci[_this._rand].message + ' Pulsante tapparella: ' + _this._pulsantiTapparelle[_this._rand].message + '\r\n');
         };
     };
     return Pulsantiera;

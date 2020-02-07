@@ -5,6 +5,10 @@ export class PulsanteTapparella {
     constructor(mqttClient: any) {
         this._mqttClient = mqttClient;
     }
+    
+    get message(): string {
+        return this._message;
+    }
 
     call(stanza: string, action: number) {
         if (action == 0) {

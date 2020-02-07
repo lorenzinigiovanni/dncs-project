@@ -6,6 +6,10 @@ export class PulsanteLuce {
       this._mqttClient = mqttClient;
    }
 
+   get message(): string {
+      return this._message;
+   }
+
    call(stanza: string, action: number) {
       if(action ==  0) {
          this.on(stanza);
