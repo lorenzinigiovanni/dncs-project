@@ -10,39 +10,40 @@ export class Applicazione {
 
     private _timer: any;
     private _up: any;
-    private _message: string = '';
+    
     
     randomCommand() {
         let room = getRandomInt(0, 2);
         let topic: string = this._stanze[room] + '/';
+        let message: string = '';
 
         let a = getRandomInt(0, 14);
         topic += this._topics[a];
 
         if (a == 0) {
-            this._message = getRandomInt(18, 28).toString();
+            message = getRandomInt(18, 28).toString();
         }
         else if (a == 1) {
-            this._message = getRandomInt(40, 60).toString();
+            message = getRandomInt(40, 60).toString();
         }
         else if (a == 4) {
-            this._message = getRandomInt(0, 100).toString();
+            message = getRandomInt(0, 100).toString();
         }
         else if (a == 7) {
-            this._message = getRandomInt(1, 5).toString();
+            message = getRandomInt(1, 5).toString();
         }
         else if (a == 10) {
-            this._message = getRandomInt(0, 100).toString();
+            message = getRandomInt(0, 100).toString();
         }
 
-        this._mqttClient.publish(topic, this._message);
+        this._mqttClient.publish(topic, message);
+        this._stream.write(topic + ' ' + message + '\r\n');
     }
 
     update() {
         this._timer = setInterval(() => this._up(), 60 * 1000);
         this._up = () => {
             this.randomCommand();
-            this._stream.write(this._message + '\r\n');
         }
     }
 }
