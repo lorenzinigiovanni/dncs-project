@@ -260,6 +260,7 @@ def applicazione():
 
 if __name__ == "__main__":
     setLogLevel("info")
+    timeout = input("Insert time to live in min:")
 
     net = Containernet(controller=Controller, link=TCLink)
 
@@ -290,7 +291,7 @@ if __name__ == "__main__":
     info("Start\n")
     net.start()
 
-    time.sleep(300)
+    time.sleep(timeout * 60)
 
     info("Stop\n")
     net.stop()
