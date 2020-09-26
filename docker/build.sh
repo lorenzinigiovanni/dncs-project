@@ -3,8 +3,8 @@
 # build.sh
 #
 
-echo "*** Build minimal test images."
-# docker image rm brokermqtt controller
+echo "Build images"
+
 docker build -t brokermqtt -f ./Dockerfile.brokermqtt .
 docker build -t mynodejs -f ./Dockerfile.mynodejs .
 docker build -t applicazione -f ./Dockerfile.applicazione .
